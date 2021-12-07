@@ -1,0 +1,32 @@
+name: 'Add labels'
+on:
+  pull_request:
+    types: [opened, reopened, edited]
+
+jobs:
+  apply-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'variants'
+        uses: actions/github-script@v5
+        if: ${{ github.event_name == 'pull_request' }} && contains(github.event.pull_request.title, 'PV-')
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['variants']
+            })
+
+      - name: 'catalog'
+        uses: actions/github-script@v5
+        if: ${{ github.event_name == 'pull_request' }} && contains(github.event.pull_request.title, 'PI-')
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['catalog']
+            })
