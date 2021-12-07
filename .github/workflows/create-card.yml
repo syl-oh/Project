@@ -1,0 +1,19 @@
+name: '[Project] Create card'
+on:
+  pull_request:
+    types: [ opened ]
+
+jobs:
+  create-card:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add PR to project board
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.projects.createCard({
+              column_id: 17101633, # IN_PROGRESS column
+              content_id: context.payload.pull_request.id,
+              content_type: "PullRequest"
+            });
