@@ -1,8 +1,0 @@
-variants:
-  - 'PV-[0-9]{1,}'
-
-catalog:
-  - 'PI-[0-9]{1,}'
-
-bug:
-  - '(bug|issue|problem)'
