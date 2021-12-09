@@ -1,5 +1,6 @@
 name: 'Add labels'
 on:
+  pull_request_target:
     types: [opened, reopened, edited]
 
 jobs:
@@ -11,6 +12,7 @@ jobs:
         continue-on-error: true
         if: contains(github.event.pull_request.title, 'PV-')
         with:
+          github-token: ${{secrets.PROJECT_TOKEN}}
           script: |
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
@@ -24,6 +26,7 @@ jobs:
         continue-on-error: true
         if: contains(github.event.pull_request.title, 'PI-')
         with:
+          github-token: ${{secrets.PROJECT_TOKEN}}
           script: |
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
