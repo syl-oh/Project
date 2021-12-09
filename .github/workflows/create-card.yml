@@ -17,3 +17,28 @@ jobs:
               content_id: context.payload.pull_request.id,
               content_type: 'PullRequest'
             });
+      - name: attempt 2
+        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9
+        with:
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+          script: |
+            try {
+              await github.projects.createCard({
+                column_id: 17101633,
+                content_id: context.payload.pull_request.id,
+                content_type: "PullRequest"
+              });
+            } catch (error) {
+              console.log(error);
+            }
+      - name: attempt 3
+        env:
+          TOKEN: ${{ secrets.PROJECT_TOKEN }}
+          USER: ${{ github.actor }}
+          PR_ID: ${{ github.event.id }}
+        run: |
+          curl -vvv -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+            -u ${USER}:${TOKEN} \
+          -d '{"content_id": ${PR_ID}, "content_type": "PullRequest", "column_id": 17134543 }' \
+            https://api.github.com/projects/columns/17134543/cards
