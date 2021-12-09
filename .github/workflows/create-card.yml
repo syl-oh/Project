@@ -8,9 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add PR to project board
+        continue-on-error: true
         uses: actions/github-script@v5
         with:
-          github-token: ${{secrets.PROJECT_TOKEN}}
+          github-token: ${{ secrets.PROJECT_TOKEN }}
           script: |
             github.rest.projects.createCard({
               column_id: 17101633, # IN_PROGRESS column
@@ -18,6 +19,7 @@ jobs:
               content_type: 'PullRequest'
             });
       - name: attempt 2
+        continue-on-error: true
         uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9
         with:
           github-token: ${{ secrets.PROJECT_TOKEN }}
