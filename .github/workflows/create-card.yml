@@ -1,6 +1,5 @@
 name: '[Project] Create card'
 on:
-  pull_request:
     types: [ opened ]
 
 jobs:

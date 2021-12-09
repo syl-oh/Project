@@ -1,6 +1,5 @@
 name: 'Add labels'
 on:
-  pull_request:
     types: [opened, reopened, edited]
 
 jobs:
@@ -18,12 +17,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               labels: ['variants']
-            })
-            github.rest.issues.removeLabel({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['catalog']
             });
 
       - name: 'catalog'
@@ -37,10 +30,4 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               labels: ['catalog']
-            })
-            github.rest.issues.removeLabel({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['variants']
             });
